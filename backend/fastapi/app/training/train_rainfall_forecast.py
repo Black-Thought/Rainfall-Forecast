@@ -8,7 +8,7 @@ from app.training.config.rainfall_forecast_config import FEATURES, TARGET, BEST_
 
 
 APP_DIR = Path(__file__).resolve().parent.parent
-DATA_PATH = APP_DIR / "data" / "processed_weather_data.csv"
+DATA_PATH = APP_DIR / "data" / "processed_weather_data.parquet"
 MODEL_PATH = APP_DIR / "models" / "xgb_rainfall_model.pkl"
 MODEL_PATH.parent.mkdir(exist_ok=True)
 
@@ -22,7 +22,7 @@ def load_and_split_data(
     Load dataset and perform time-based train-test split.
 
     Args:
-        data_path (Path): Path to CSV dataset
+        data_path (Path): Path to Parquet dataset
         train_end (str): End date for training data
         test_start (str): Start date for test data
 
@@ -32,7 +32,7 @@ def load_and_split_data(
     if not data_path.exists():
         raise FileNotFoundError(f"Dataset not found at {data_path}")
 
-    df = pd.read_csv(data_path)
+    df: pd.DataFrame = pd.read_parquet(data_path, engine="pyarrow")
     df["date_of_record"] = pd.to_datetime(df["date_of_record"])
 
     train_df = df[df["date_of_record"] <= train_end].copy()

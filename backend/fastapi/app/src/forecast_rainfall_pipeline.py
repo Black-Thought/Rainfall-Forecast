@@ -23,7 +23,7 @@ def forecast_rainfall_pipeline(
     #  Load model + data
     model = load_model_joblib(XGB_RAINFALL_FORECAST_MODEL_PATH)
 
-    df: pd.DataFrame = pd.read_csv(WEATHER_DATA_PATH)
+    df: pd.DataFrame = pd.read_parquet(WEATHER_DATA_PATH, engine="pyarrow")
     df["date_of_record"] = pd.to_datetime(df["date_of_record"])
 
     # Filter station

@@ -11,7 +11,7 @@ DATA_DIR = APP_DIR / "data"
 MODEL_DIR = APP_DIR / "models"
 
 # dataset path
-WEATHER_DATA_PATH = DATA_DIR / "processed_weather_data.csv"
+WEATHER_DATA_PATH = DATA_DIR / "processed_weather_data.parquet"
 
 # models path
 XGB_RAINFALL_FORECAST_MODEL_PATH = MODEL_DIR / "xgb_rainfall_forecast.pkl"

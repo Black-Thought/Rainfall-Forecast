@@ -9,7 +9,7 @@ from app.core.paths import (
     XGB_RAINFALL_FORECAST_MODEL_PATH
 )
 
-df = pd.read_csv(WEATHER_DATA_PATH)
+df: pd.DataFrame = pd.read_parquet(WEATHER_DATA_PATH, engine="pyarrow")
 df["date_of_record"] = pd.to_datetime(df["date_of_record"])
 station_list = df["station_name"].unique()
 model = load_model_joblib(XGB_RAINFALL_FORECAST_MODEL_PATH)
@@ -44,7 +44,7 @@ def test_forecast_all_real_stations_unit(mock_forecast):
     """
 
     # Load real stations
-    df = pd.read_csv(WEATHER_DATA_PATH)
+    df: pd.DataFrame = pd.read_parquet(WEATHER_DATA_PATH, engine="pyarrow")
     station_list = df["station_name"].unique()
 
     # Mock behavior
