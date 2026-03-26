@@ -17,6 +17,7 @@ FEATURES = [
     "rain_lag_1", "rain_lag_3", "rain_lag_7", "rain_lag_30",
     "month_sin", "month_cos"
 ]
+
 TARGET   = "rainfall"
 SIGMA    = 2
 
