@@ -1,0 +1,407 @@
+station_name,state,district,latitude,longitude
+Gulmarg,JK,Baramulla,34.05,74.4
+Srinagar,JK,Srinagar,34.0833,74.8333
+Qazi Gund,JK,Anantnag,33.5833,75.0833
+Banihal,JK,Ramban,33.5,75.1667
+Jammu,JK,Jammu,32.6667,74.8333
+Pathankot / Path?nkot,PB,Pathankot,32.2338,75.6346
+Dharmsala,HP,Kangra,32.2667,76.3833
+Manali,HP,Kullu,32.2667,77.1667
+Amritsar,PB,Amritsar,31.6333,74.8667
+Una,HP,Una,31.4667,76.2667
+Mandi,HP,Mandi,31.7167,76.9667
+Sundernagar / Sundarnagar,HP,Mandi,31.5333,76.9
+Bilaspur,HP,Bilaspur,31.25,76.6667
+Bhuntar,HP,Kullu,31.8333,77.1667
+Shimla,HP,Shimla,31.1,77.1667
+Bhatinda,PB,Bathinda,30.1667,74.5833
+Ludhiana,PB,Ludhiana,30.8667,75.9333
+Patiala,PB,Patiala,30.3333,76.4667
+Ambala,HR,Ambala,30.3833,76.7667
+Ambala / Amb?la,HR,Ambala,30.4,76.7667
+Chandigarh / S?rajpur,CH,Chandigarh,30.7333,76.8833
+Dharmpur,HP,Solan,30.9,77.0167
+Dehradun,UP,Dehradun,30.3167,78.0333
+Tehri,UP,Tehri Garhwal,30.4,78.4833
+Ganganagar,RJ,Ganganagar,29.9167,73.9167
+Hissar,HR,Hisar,29.1667,75.7333
+Karnal,HR,Karnal,29.7,77.0333
+Meerut,UP,Meerut,29.0167,77.6333
+Najibabad,UP,Bijnor,29.6167,78.3833
+Nainital,UP,Nainital,29.4,79.4667
+Mukteshwar Kumaon,UP,Nainital,29.4667,79.65
+Pantnagar,UP,Udham Singh Nagar,29.0333,79.4667
+Bikaner,RJ,Bikaner,28.0,73.3
+Churu,RJ,Churu,28.25,74.9167
+Pilani,RJ,Jhunjhunu,28.3333,75.5833
+Rohtak,HR,Rohtak,28.8333,76.5833
+Narnaul,HR,Mahendragarh,28.0,76.0833
+New Delhi / Palam,DL,New Delhi,28.5667,77.1167
+New Delhi / Safdarjung,DL,New Delhi,28.5833,77.2
+Moradabad,UP,Moradabad,28.8333,78.75
+Rampur,UP,Rampur,28.75,79.0
+Bareilly,UP,Bareilly,28.3667,79.4
+Pasighat,AR,East Siang,28.1,95.3833
+Phalodi,RJ,Jodhpur,27.1333,72.3667
+Sikar,RJ,Sikar,27.6167,75.1333
+Alwar,RJ,Alwar,27.5,76.5833
+Agra,UP,Agra,27.15,77.9667
+Aligarh,UP,Aligarh,27.8833,78.0667
+Shahjahanpur,UP,Shahjahanpur,27.8833,79.9
+Hardoi,UP,Hardoi,27.3833,80.1667
+Bahraich,UP,Bahraich,27.5667,81.6
+Nautanwa,UP,Maharajganj,27.4333,83.4167
+Darjeeling,WB,Darjeeling,27.05,88.2667
+Kalimpong,WB,Kalimpong,27.0667,88.4667
+Gangtok,SK,Gangtok,27.3333,88.6167
+North Lakhimpur,AS,Lakhimpur,27.2333,94.1167
+Dibrugarh / Mohanbari,AS,Dibrugarh,27.4833,95.0167
+Jaisalmer,RJ,Jaisalmer,26.9,70.9167
+Jodhpur,RJ,Jodhpur,26.3,73.0167
+Ajmer,RJ,Ajmer,26.45,74.6167
+Jaipur / Sanganer,RJ,Jaipur,26.8167,75.8
+Gwalior,MP,Gwalior,26.2333,78.25
+Kanpur,UP,Kanpur Nagar,26.4333,80.3667
+Kanpur / Chakeri,UP,Kanpur Nagar,26.4,80.4
+Lucknow,UP,Lucknow,26.8667,80.9333
+Lucknow / Amausi,UP,Lucknow,26.75,80.8833
+Fursatganj / R?e Bareli,UP,Rae Bareli,26.25,81.3667
+Gorakhpur,UP,Gorakhpur,26.75,83.3667
+Raxaul,BR,East Champaran,26.9833,84.85
+Muzaffarpur,BR,Muzaffarpur,26.1167,85.4
+Darbhanga,BR,Darbhanga,26.1667,85.9
+Supaul,BR,Supaul,26.1333,86.5833
+Forbesganj,BR,Araria,26.3,87.2667
+Siliguri,WB,Jalpaiguri,26.6667,88.3667
+Jalpaiguri,WB,Jalpaiguri,26.5333,88.7167
+Cooch Behar,WB,Cooch Behar,26.3333,89.4667
+Dhubri,AS,Dhubri,26.0167,89.9833
+Dhubri Rupsi,AS,Dhubri,26.15,89.9167
+Goalpara,AS,Goalpara,26.1833,90.6333
+Rangia,AS,Kamrup,26.4333,91.6167
+Gauhati,AS,Kamrup Metropolitan,26.1,91.5833
+Majbat,AS,Udalguri,26.75,92.35
+Chaparmukh,AS,Nagaon,26.2,92.5167
+Tezpur,AS,Sonitpur,26.6167,92.7833
+Golaghat,AS,Golaghat,26.5167,93.9833
+Jorhat / Lengrabhita,AS,Jorhat,26.0667,90.1667
+Barmer,RJ,Barmer,25.75,71.3833
+Erinpura / Jawai Dam Site,RJ,Pali,25.0833,73.0833
+Bhilwara,RJ,Bhilwara,25.35,74.6333
+Bundi,RJ,Bundi,25.45,75.6333
+Kota Aerodrome,RJ,Kota,25.15,75.85
+Sawai Madhopur,RJ,Sawai Madhopur,25.9833,76.3667
+Sheopur,MP,Sheopur,25.6667,76.6833
+Shivpuri,MP,Shivpuri,25.3333,77.65
+Datia,MP,Datia,25.6667,78.4667
+Jhansi,UP,Jhansi,25.45,78.5833
+Nowgong,MP,Chhatarpur,25.0667,79.45
+Orai,UP,Jalaun,25.9833,79.5
+Hamirpur,UP,Hamirpur,25.95,80.15
+Banda,UP,Banda,25.4667,80.3667
+Allahabad / Bamhrauli,UP,Prayagraj,25.45,81.7333
+Varanasi / Babatpur,UP,Varanasi,25.45,82.8667
+Ghazipur,UP,Ghazipur,25.4,83.55
+Varanasi,UP,Varanasi,25.3,83.0167
+Chapra,BR,Saran,25.7833,84.7333
+Patna,BR,Patna,25.6,85.1
+Bhagalpur,BR,Bhagalpur,25.2333,86.95
+Sabaur,BR,Bhagalpur,25.2333,87.0667
+Purnea,BR,Purnia,25.2667,87.4667
+Malda,WB,Malda,25.0333,88.1333
+Balurghat,WB,Dakshin Dinajpur,25.2167,88.7833
+Barapani / Bara Pani,ML,Ri-Bhoi,25.7,91.9667
+Cherrapunji,ML,East Khasi Hills,25.25,91.7333
+Shillong,ML,East Khasi Hills,25.5667,91.8833
+Haflong,AS,Dima Hasao,25.1667,93.0167
+Lumding,AS,Hojai,25.75,93.1833
+Kohima,NL,Kohima,25.6333,94.1667
+Deesa,GJ,Banaskantha,24.2,72.2
+Mount Abu,RJ,Sirohi,24.6,72.7167
+Udaipur Dabok,RJ,Udaipur,24.6167,73.8833
+Udaipur,RJ,Udaipur,24.5833,73.7
+Chittorgarh,RJ,Chittorgarh,24.8833,74.6333
+Rajgarh,MP,Rajgarh,24.0,76.7167
+Guna,MP,Guna,24.65,77.3167
+Tikamgarh,MP,Tikamgarh,24.7667,78.8333
+Khajuraho,MP,Chhatarpur,24.9833,79.9167
+Satna,MP,Satna,24.5667,80.8333
+Rewa,MP,Rewa,24.5333,81.3
+Sidhi,MP,Sidhi,24.4167,81.8667
+Daltonganj,BR,Palamu,24.05,84.0667
+Dehri,BR,Rohtas,24.9167,84.1833
+Gaya,BR,Gaya,24.75,84.95
+Berhampore,WB,Murshidabad,24.1333,88.2667
+Kailashahar,TR,Unakoti,24.3167,92.0
+Silchar,AS,Cachar,24.75,92.8
+Imphal Tulihal,MN,Imphal West,24.7667,93.9
+Naliya,GJ,Kachchh,23.25,68.85
+Bhuj-Rudramata,GJ,Kachchh,23.25,69.6667
+Kandla Aerodrome,GJ,Kachchh,23.15,70.1167
+New Kandla,GJ,Kachchh,23.0,70.2167
+Ahmadabad,GJ,Ahmedabad,23.0667,72.6333
+Gandhinagar,GJ,Gandhinagar,23.2333,72.7167
+Ratlam,MP,Ratlam,23.3167,75.05
+Ujjain,MP,Ujjain,23.1833,75.7833
+Shajapur,MP,Shajapur,23.4333,76.3167
+Bhopal / Bairagarh,MP,Bhopal,23.2833,77.35
+Vidisha,MP,Vidisha,23.5333,77.8167
+Sagar,MP,Sagar,23.85,78.75
+Raisen,MP,Raisen,23.3167,77.8333
+Damoh,MP,Damoh,23.8333,79.45
+Jabalpur,MP,Jabalpur,23.2,79.95
+Umaria,MP,Umaria,23.5333,80.8833
+Ambikapur,MP,Surguja,23.1667,83.25
+Ranchi / Silwai,BR,Ranchi,23.4333,85.4
+M. O. Ranchi,BR,Ranchi,23.3167,85.3167
+Panagarh / P?n?garh,WB,Paschim Bardhaman,23.4667,87.4333
+Purulia,WB,Purulia,23.3333,86.4167
+Bankura,WB,Bankura,23.25,87.05
+Shanti Niketan,WB,Birbhum,23.65,87.7
+Burdwan,WB,Purba Bardhaman,23.2333,87.85
+Krishnanagar,WB,Nadia,23.4,88.5167
+Bagati,WB,Hooghly,22.9833,88.3667
+Malanjkhand,MP,Balaghat,22.0,80.7
+Agartala,TR,West Tripura,23.8833,91.25
+Aijal,MZ,Aizawl,23.7333,92.7167
+Okha,GJ,Devbhumi Dwarka,22.4833,69.1167
+Dwarka,GJ,Devbhumi Dwarka,22.3667,69.0833
+Jamnagar,GJ,Jamnagar,22.45,70.0833
+Rajkot,GJ,Rajkot,22.3,70.7833
+Surendranagar,GJ,Surendranagar,22.7333,71.6
+Vallabh Vidyanagar,GJ,Anand,22.5667,72.9333
+Baroda / Vadodara,GJ,Vadodara,22.3,73.25
+Baroda Aerodrome,GJ,Vadodara,22.3333,73.2667
+Dhar,MP,Dhar,22.6,75.3
+Indore,MP,Indore,22.7167,75.8
+Hoshangabad,MP,Narmadapuram,22.7667,77.7667
+Pachmarhi,MP,Narmadapuram,22.4667,78.4333
+Chhindwara,MP,Chhindwara,22.1,79.0
+Narsinghpur,MP,Narsinghpur,22.95,79.1833
+Seoni,MP,Seoni,22.0833,79.55
+Mandla,MP,Mandla,22.5833,80.3667
+Pendra Road,MP,Gaurela-Pendra-Marwahi,22.7667,81.9
+Sundargarh,OR,Sundargarh,22.0167,84.0
+Rourkela,OR,Sundargarh,22.2167,84.8833
+Jamshedpur,BR,East Singhbhum,22.8167,86.1833
+Midnapore,WB,Paschim Medinipur,22.4167,87.3167
+Uluberia,WB,Howrah,22.5,87.95
+Calcutta / Alipore,WB,Kolkata,22.5333,88.3333
+Calcutta / Dum Dum,WB,Kolkata,22.65,88.45
+Diamond Harbour,WB,South 24 Parganas,22.1833,88.2
+Canning,WB,South 24 Parganas,22.25,88.6667
+Porbandar,GJ,Porbandar,21.65,69.6667
+Keshod,GJ,Gir Somnath,21.3167,70.3167
+Amreli,GJ,Amreli,21.6,71.2167
+Mahuva,GJ,Bhavnagar,21.0833,71.7833
+Bhaunagar,GJ,Bhavnagar,21.75,72.2
+Surat,GJ,Surat,21.2,72.8333
+Khargone,MP,Khargone,21.8167,75.6167
+Jalgaon,MH,Jalgaon,21.05,75.5667
+Khandwa,MP,Khandwa,21.8333,76.3667
+Betul,MP,Betul,21.8667,77.9333
+Nagpur Mayo Hospital,MH,Nagpur,21.15,79.1167
+Nagpur Sonegaon,MH,Nagpur,21.1,79.05
+Gondia,MH,Gondia,21.4667,80.2
+Mana / Raipur,CT,Raipur,21.2333,81.65
+Pbo Raipur,MP,Raipur,21.2167,81.6667
+Raipur / Phundardih,MP,Raipur,21.2167,81.6667
+Durg,MP,Durg,21.1833,81.2833
+Sambalpur,OR,Sambalpur,21.4667,83.9667
+Jharsuguda,OR,Jharsuguda,21.9167,84.0833
+Keongjhargarh,OR,Keonjhar,21.6167,85.5167
+Baripada,OR,Mayurbhanj,21.9333,86.7667
+Balasore,OR,Balasore,21.5167,86.9333
+Contai,WB,Purba Medinipur,21.7833,87.75
+Digha,WB,Purba Medinipur,21.8333,87.7833
+Veraval,GJ,Gir Somnath,20.9,70.3667
+Diu,GJ,Diu,20.7167,70.9167
+Bulsar,GJ,Valsad,20.6167,72.9333
+Daman,DD,Daman,20.4167,72.85
+Nasik Ozar,MH,Nashik,20.1333,73.9167
+Nasik,MH,Nashik,20.0,73.7833
+Malegaon,MH,Nashik,20.55,74.5333
+Buldana,MH,Buldhana,20.5333,76.2333
+Akola,MH,Akola,20.7,77.0333
+Washim / W?sh?m,MP,Washim,20.1167,77.1333
+Amraoti,MH,Amravati,20.9333,77.7833
+Wardha,MH,Wardha,20.6667,78.5833
+Yeotmal,MH,Yavatmal,20.4,78.15
+Bramhapuri,MH,Chandrapur,20.6,79.85
+Rajnandgaon / R?j N?ndgaon,CT,Rajnandgaon,21.1,81.0333
+Angul,OR,Angul,20.8333,85.1
+Cuttack,OR,Cuttack,20.4667,85.9333
+Bhubaneswar,OR,Khordha,20.25,85.8333
+Chandbali,OR,Bhadrak,20.7833,86.7333
+Paradip C. W. R.,OR,Jagatsinghpur,20.3,86.6833
+Dahanu,MH,Palghar,19.9667,72.7167
+Bombay / Juhu,MH,Mumbai Suburban,19.1167,72.8333
+Bombay / Santacruz,MH,Mumbai Suburban,19.1167,72.85
+T.B.I.A,MH,Mumbai Suburban,19.15,72.0
+Ahmadnagar,MH,Ahmednagar,19.0833,74.8
+Jalna / Badnapur,MH,Jalna,19.8333,75.8
+Aurangabad,MH,Aurangabad,19.8833,75.3333
+Aurangabad Chikalthan Aerodrome,MH,Aurangabad,19.85,75.4
+Parbhani,MH,Parbhani,19.2667,76.7667
+Nanded,MH,Nanded,19.0833,77.3333
+Chandrapur,MH,Chandrapur,19.9667,79.3
+Jagdalpur,MP,Bastar,19.0833,82.0333
+Bhawanipatna,OR,Kalahandi,19.9167,83.1833
+Gopalpur,OR,Ganjam,19.2667,84.8833
+Puri,OR,Puri,19.8,85.8167
+Bombay / Colaba,MH,Mumbai City,18.9,72.8167
+Alibag,MH,Raigad,18.6333,72.8667
+Matheran,MH,Raigad,18.9833,73.2833
+Poona,MH,Pune,18.5333,73.85
+Poona / Lohogaon Aerodrome,MH,Pune,18.5833,73.9167
+Baramati,MH,Pune,18.15,74.5833
+Jeur,MH,Solapur,18.2,75.2
+Udgir,KA,Latur,18.0667,77.1167
+Nizamabad,AP,Nizamabad,18.6667,78.1
+Medak,AP,Medak,18.05,78.2667
+Ramgundam,AP,Peddapalli,18.7667,79.4333
+Hanamkonda,AP,Hanumakonda,18.0167,79.5667
+Koraput,OR,Koraput,18.8167,82.7167
+Kalingapatam,AP,Srikakulam,18.3333,84.1333
+Harnai,MH,Ratnagiri,17.8167,73.1
+Ratnagiri,MH,Ratnagiri,16.9833,73.3333
+Mahabaleshwar,MH,Satara,17.9333,73.6667
+Satara,MH,Satara,17.5167,74.05
+Sholapur,MH,Solapur,17.6667,75.9
+Gulbarga,KA,Kalaburagi,17.35,76.85
+Bidar Airport,KA,Bidar,17.9167,77.5333
+Hyderabad Airport,AP,Hyderabad,17.45,78.4667
+Nalgonda,AP,Nalgonda,17.0,79.25
+Kothagudem,AP,Bhadradri Kothagudem,17.55,80.6333
+Khammam,AP,Khammam,17.25,80.15
+Tuni,AP,Kakinada,17.35,82.55
+Vishakhapatnam,AP,Visakhapatnam,17.7167,83.2333
+Cwc Vishakhapatnam / Waltair,AP,Visakhapatnam,17.7,83.3
+Kolhapur,MH,Kolhapur,16.7,74.2333
+Sangli,MH,Sangli,16.85,74.6
+Bagalkote / Mangoli,KA,Bagalkote,16.7,75.75
+Bijapur,KA,Bijapur,16.8167,75.7167
+Mahabubnagar,AP,Mahabubnagar,16.75,78.0
+Raichur,KA,Raichur,16.2,77.35
+Rentachintala,AP,Guntur,16.55,79.55
+Vijayawada / Gannavaram,AP,Krishna,16.5333,80.8
+Nandigama,AP,NTR,16.7833,80.2833
+Machilipatnam,AP,Krishna,16.2,81.15
+Narsapur,AP,West Godavari,16.4333,81.7
+Kakinada,AP,Kakinada,16.95,82.2333
+Goa / Panjim,GA,North Goa,15.4833,73.8167
+Vengurla,MH,Sindhudurg,15.8667,73.6333
+Goa / Dabolim Airport,GA,South Goa,15.3833,73.8167
+Mormugao,GA,South Goa,15.4167,73.7833
+Belgaum,KA,Belagavi,15.85,74.5333
+Belgaum / Sambra,KA,Belagavi,15.85,74.6167
+Dharwad,KA,Dharwad,15.4833,74.9833
+Gadag,KA,Gadag,15.4167,75.6333
+Bellary,KA,Ballari,15.15,76.85
+Parangipettai,TN,Cuddalore,11.5,79.7667
+Nandyal,AP,Nandyal,15.4667,78.4833
+Kurnool,AP,Kurnool,15.8,78.0667
+Bapatla,AP,Bapatla,15.9,80.4667
+Ongole,AP,Prakasam,15.5,80.0833
+Karwar,KA,Uttara Kannada,14.7833,74.1333
+Honavar,KA,Uttara Kannada,14.2833,74.45
+Haveri / H?veri,KA,Haveri,14.7833,75.4
+Koppal,KA,Koppal,15.35,76.15
+Shirali,KA,Uttara Kannada,14.0667,74.5333
+Davangere / SM Krishna Ext.,KA,Davangere,14.5,75.9167
+Chitradurga,KA,Chitradurga,14.2333,76.4333
+Anantapur,AP,Sri Sathya Sai,14.6833,77.6167
+Cuddapah,AP,YSR,14.4833,78.8333
+Kavali,AP,Nellore,14.9,79.9833
+Nellore,AP,Nellore,14.45,79.9833
+Agumbe,KA,Shivamogga,13.5,75.0833
+Shimoga,KA,Shivamogga,13.9333,75.6333
+Chickmagalur,KA,Chikkamagaluru,13.25,75.75
+Hassan,KA,Hassan,13.0,76.15
+Chikkanahalli / Sadali,KA,Chikkaballapura,13.6667,77.9167
+M.O. Agathi Airport / Kavaratti,LD,Lakshadweep,10.85,72.4667
+Arogyavaram,AP,Tirupati,13.5333,78.5
+Chintamani / Sugut?ru,KA,Chikkaballapura,13.2,78.0667
+Tirupathi,AP,Tirupati,13.6667,79.5833
+Tiruttani,TN,Tiruvallur,13.15,79.5333
+Madras,TN,Chennai,13.0667,80.25
+Madras / Minambakkam,TN,Chennai,13.0,80.1833
+Mangalore / Bajpe,KA,Dakshina Kannada,12.9167,74.8833
+Mangalore / Panambur,KA,Dakshina Kannada,12.95,74.8333
+Madikeri,KA,Kodagu,12.4167,75.7333
+Mandya,KA,Mandya,12.5,76.8333
+Mysore,KA,Mysuru,12.3,76.7
+Bangalore,KA,Bengaluru Urban,12.9667,77.5833
+Bangalore / Hindustan Airport,KA,Bengaluru Urban,12.95,77.6333
+Dharmapuri,TN,Dharmapuri,12.1333,78.0333
+Tiruppattur,TN,Tirupattur,12.4833,78.5667
+Vellore,TN,Vellore,12.9167,79.15
+Maya Bandar,AN,North & Middle Andaman,12.9167,92.9167
+Long Island,AN,North & Middle Andaman,12.4167,92.9333
+Amini Divi,LD,Lakshadweep,11.1167,72.7333
+Kozhikode,KL,Kozhikode,11.25,75.7833
+Cannur,KL,Kannur,11.8333,75.3333
+Nilambur,KL,Malappuram,11.2833,76.2333
+Udhagamandalam,TN,Nilgiris,11.4,76.7333
+Coonoor,TN,Nilgiris,11.35,76.8
+Coimbatore,TN,Coimbatore,11.0,76.9667
+M.O. Karipur Airport / Kondotti,KL,Malappuram,11.1333,75.95
+Coimbatore / Peelamedu,TN,Coimbatore,11.0333,77.05
+Chamarajnagar / Chamrajnagar,KA,Chamarajanagar,11.9333,76.9333
+Salem,TN,Salem,11.65,78.1667
+Cuddalore,PY,Cuddalore,11.7667,79.7667
+Thanjavur,TN,Thanjavur,10.7833,79.1333
+M.O. Pondicherry / Puducherry,TN,Puducherry,11.9667,79.8167
+Port Blair,AN,South Andaman,11.6667,92.7167
+Palakkad,KL,Palakkad,10.7667,76.65
+Cochin Int. Airport / K?ladi,KL,Ernakulam,10.15,76.4
+Kodaikanal,TN,Dindigul,10.2333,77.4667
+Yercaud,TN,Salem,11.75,78.1667
+Valparai,TN,Coimbatore,10.2833,77.0
+K. Paramathy,TN,Karur,10.95,78.0833
+Tiruchchirapalli,TN,Tiruchirappalli,10.7667,78.7167
+Karaikal,PY,Karaikal,10.9167,79.8333
+Nagappattinam,TN,Nagapattinam,10.7667,79.85
+Atiramapattinam,TN,Thanjavur,10.3333,79.3833
+Fort Cochin,KL,Ernakulam,9.9667,76.2333
+Alapuzha,KL,Alappuzha,9.55,76.4167
+Cochin / Willingdon,KL,Ernakulam,9.95,76.2667
+Punalur,KL,Kollam,9.0,76.9167
+Kottayam,KL,Kottayam,9.5833,76.5167
+Periakulum / Ellakkal,KL,Theni,10.0,77.1333
+Thrissur,KL,Thrissur,10.5167,76.2167
+Kovilangulam / Aruppukkottai,TN,Virudhunagar,9.55,78.0833
+Madurai,TN,Madurai,9.9167,78.1167
+Tondi,TN,Ramanathapuram,9.7333,79.0333
+Pamban,TN,Ramanathapuram,9.2667,79.3
+Hut Bay,AN,South Andaman,10.5833,92.55
+Car Nicobar,AN,Nicobar,9.1667,92.8333
+Minicoy,LD,Lakshadweep,8.3,73.15
+Thiruvananthapuram,KL,Thiruvananthapuram,8.4833,76.95
+Palayankottai,TN,Tirunelveli,8.7333,77.75
+Kanniyakumari,TN,Kanyakumari,8.0833,77.5
+Tuticorin New Port,TN,Thoothukudi,8.75,78.1833
+Nancowry,AN,Nicobar,7.9833,93.5333
+Daman / Dam?n,DD,Daman,20.4344,72.8432
+Surat / Magdala,GJ,Surat,21.1141,72.7418
+Udaipur / Naramagra,RJ,Udaipur,24.6177,73.8961
+Lengpui / Hmunpui,MZ,Aizawl,23.8406,92.6197
+Manipur Road / R?jb?ri,NL,Jiribam,25.88,93.77
+Vishakhapatnam / Gajuwaka,AP,Visakhapatnam,17.7212,83.2245
+Dehradun / R?ni Pokhri,UP,Dehradun,30.1897,78.1803
+Kangra / Chari,HP,Kangra,32.1651,76.2634
+Jammu / R?mb?gh,JK,Jammu,32.6891,74.8374
+Ludhiana / Dor?ha,PB,Ludhiana,30.8547,75.9526
+Shimla / Kanda,HP,Shimla,31.0818,77.068
+Agatti / Kavaratti,LD,Lakshadweep,10.8237,72.176
+Bangalore / Bengaluru / Devenahalli / BIAL 2 Wheeler Parking,KA,Bengaluru Rural,13.1979,77.7063
+Cochin / K?ladi,KL,Ernakulam,10.152,76.4019
+Calicut / Kondotti,KL,Kozhikode,11.1368,75.9553
+Hyderabad / Anthredigudam,AP,Hyderabad,17.2406,78.4289
+Jindal Vijaynagar,KA,Ballari,15.1758,76.6333
+Ondal / And?l,WB,Paschim Bardhaman,23.6167,87.2
+Port Blair / Portblair / Austin?b?d,AN,South Andaman,11.6412,92.7297
+Pondicherry / Auroville,TN,Puducherry,11.9687,79.8101
+Rajahmundry / R?j?nagaram,AP,East Godavari,17.1104,81.8182
+Tirupati / Renigunta,AP,Tirupati,13.6325,79.5433
+Vizagapatam / Gajuwaka,AP,Visakhapatnam,17.7167,83.2333
