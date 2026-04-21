@@ -12,7 +12,7 @@ import { RainfallForecastChart } from "../components/charts/RainfallForecastChar
 const schema = z.object({
   station_name: z.string().min(1, "Station name is required"),
   start_date: z.string().min(1),
-  num_days: z.number().min(1).max(30),
+  num_days: z.number().min(1),
 });
 
 type FormValues = z.infer<typeof schema>;
@@ -84,24 +84,6 @@ export function StationRainfallPage() {
       {result ? (
         <section className="panel">
           <h3>Station: {result.station_name}</h3>
-          <div className="table-wrapper">
-            <table>
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Forecasted Rainfall (mm)</th>
-                </tr>
-              </thead>
-              <tbody>
-                {result.predictions.map((p) => (
-                  <tr key={p.date_of_record}>
-                    <td>{p.date_of_record}</td>
-                    <td>{p.predicted_rainfall.toFixed(2)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
           <RainfallForecastChart data={result.predictions} />
         </section>
       ) : null}

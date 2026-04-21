@@ -1,7 +1,7 @@
 import {
-  Bar,
-  BarChart,
   CartesianGrid,
+  Line,
+  LineChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -22,13 +22,19 @@ export function RainfallForecastChart({ data }: Props) {
     <div className="chart-card">
       <h3>Forecasted Rainfall (mm)</h3>
       <ResponsiveContainer width="100%" height={300}>
-        <BarChart data={data}>
+        <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date_of_record" />
           <YAxis />
           <Tooltip />
-          <Bar dataKey="predicted_rainfall" fill="#0ea5e9" />
-        </BarChart>
+          <Line
+            type="monotone"
+            dataKey="predicted_rainfall"
+            stroke="#0ea5e9"
+            strokeWidth={2}
+            dot={{ r: 2 }}
+          />
+        </LineChart>
       </ResponsiveContainer>
     </div>
   );

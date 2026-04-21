@@ -26,7 +26,7 @@ const schema = z.object({
   lat: z.number().min(-90).max(90),
   lon: z.number().min(-180).max(180),
   start_date: z.string().min(1),
-  num_days: z.number().min(1).max(30),
+  num_days: z.number().min(1),
   sensitivity: z.number().min(1).max(10),
 });
 
@@ -201,32 +201,13 @@ export function ZonewiseRainfallPage() {
             </div>
           </div>
 
-          <div className="table-wrapper">
-            <table>
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Forecasted Rainfall (mm)</th>
-                </tr>
-              </thead>
-              <tbody>
-                {result.predictions.map((p) => (
-                  <tr key={p.date_of_record}>
-                    <td>{p.date_of_record}</td>
-                    <td>{p.predicted_rainfall.toFixed(2)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
           <RainfallForecastChart data={result.predictions} />
         </section>
       ) : null}
 
       <section className="panel">
         <h3>Station-wise Rainfall Search</h3>
-        <p className="hint">Type station name for suggestions, or click a station marker on map.</p>
+        <p className="hint">Type station name for suggestions.</p>
         <div className="form-grid">
           <label>
             Station Name
@@ -253,7 +234,6 @@ export function ZonewiseRainfallPage() {
             <input
               type="number"
               min={1}
-              max={30}
               value={stationDays}
               onChange={(e) => setStationDays(Number(e.target.value))}
             />
@@ -268,24 +248,6 @@ export function ZonewiseRainfallPage() {
 
         {stationResult ? (
           <>
-            <div className="table-wrapper">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Forecasted Rainfall (mm)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {stationResult.predictions.map((p) => (
-                    <tr key={p.date_of_record}>
-                      <td>{p.date_of_record}</td>
-                      <td>{p.predicted_rainfall.toFixed(2)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
             <RainfallForecastChart data={stationResult.predictions} />
           </>
         ) : null}
