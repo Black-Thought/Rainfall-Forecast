@@ -44,22 +44,26 @@ ACTUAL_COLOR    = "#00d4ff"
 PREDICTED_COLOR = "#ff6b9d"
 
 plt.rcParams.update({
-    "font.family":       "DejaVu Sans",
-    "axes.spines.top":   False,
+    "figure.facecolor": "white",
+    "axes.facecolor": "white",
+    "axes.edgecolor": "black",
+
+    "axes.labelcolor": "black",
+    "xtick.color": "black",
+    "ytick.color": "black",
+    "text.color": "black",
+
+    "axes.spines.top": False,
     "axes.spines.right": False,
-    "axes.grid":         True,
-    "grid.alpha":        0.3,
-    "grid.linestyle":    "--",
-    "grid.color":        "#cccccc",
-    "figure.facecolor":  "#0f1117",
-    "axes.facecolor":    "#1a1d2e",
-    "axes.labelcolor":   "#e0e0e0",
-    "xtick.color":       "#b0b0b0",
-    "ytick.color":       "#b0b0b0",
-    "text.color":        "#e0e0e0",
-    "legend.framealpha": 0.3,
-    "legend.facecolor":  "#2a2d3e",
-    "legend.edgecolor":  "#555555",
+
+    "axes.grid": True,
+    "grid.color": "black",
+    "grid.alpha": 0.2,
+    "grid.linestyle": "--",
+
+    "legend.facecolor": "white",
+    "legend.edgecolor": "black",
+    "legend.framealpha": 1,
 })
 
 
@@ -112,6 +116,20 @@ def compute_all_metrics(y_true, y_pred):
     }
 
 
+BEST_XGB_PARAMS = {
+    "n_estimators": 731,
+    "max_depth": 11,
+    "learning_rate": 0.014498153031985235,
+    "subsample": 0.7544991318541121,
+    "colsample_bytree": 0.7352517209279018,
+    "gamma": 0.8642446639034301,
+    "reg_alpha": 3.5856717998369967,
+    "reg_lambda": 1.982944548754793,
+    "min_child_weight": 10,
+    "max_delta_step": 0,
+    "colsample_bylevel": 0.5751814333780054,
+    "colsample_bynode": 0.6861526870547513,
+}
 
 
 # ══════════════════════════════════════════════════════════════════
@@ -125,12 +143,13 @@ class ZoneModelRegistry:
 
     def _build_model(self):
         return XGBRegressor(
-            n_estimators=400,
-            learning_rate=0.05,
-            max_depth=8,
-            subsample=0.8,
-            colsample_bytree=0.8,
-            random_state=42
+            # n_estimators=400,
+            # learning_rate=0.05,
+            # max_depth=8,
+            # subsample=0.8,
+            # colsample_bytree=0.8,
+            # random_state=42
+            **BEST_XGB_PARAMS
         )
 
     def train_zone(self, df, zone_name):
@@ -470,6 +489,78 @@ def evaluate_station_split(registry, df):
 
     return results_df
 
+def evaluate_zone_metrics(registry, df) -> pd.DataFrame:
+    """
+    Computes RMSE, MAE, MSE, R2, NSE for both train and test station splits
+    across every zone. Returns a tidy DataFrame with one row per zone per split.
+    """
+    records = []
+
+    for zone_name in registry._models:
+        model = registry.get_model(zone_name)
+        train_stations, test_stations = registry.get_split(zone_name)
+
+        for split_label, stations in [("train", train_stations), ("test", test_stations)]:
+
+            # Gather all rows for this split's stations
+            split_df = df[df["station_name"].isin(stations)].copy()
+
+            if split_df.empty:
+                print(f"⚠ No data for {zone_name} [{split_label}], skipping.")
+                continue
+
+            X      = split_df[FEATURES]
+            y_true = split_df[TARGET].values
+            y_pred = model.predict(X)
+
+            metrics = compute_all_metrics(y_true, y_pred)
+
+            records.append({
+                "zone":  zone_name,
+                "split": split_label,
+                "mse":   metrics["mse"],
+                "rmse":  metrics["rmse"],
+                "mae":   metrics["mae"],
+                "r2":    metrics["r2"],
+                "nse":   metrics["nse"],
+            })
+
+            print(f"✔ {zone_name} [{split_label}]  "
+                  f"RMSE={metrics['rmse']:.3f}  MAE={metrics['mae']:.3f}  "
+                  f"MSE={metrics['mse']:.3f}  R2={metrics['r2']:.3f}  NSE={metrics['nse']:.3f}")
+
+    results_df = pd.DataFrame(records, columns=["zone", "split", "mse", "rmse", "mae", "r2", "nse"])
+
+    return results_df
+
+
+def save_zone_metrics(registry, df, filepath: str = "zone_train_test_metrics.csv") -> pd.DataFrame:
+    """
+    Wrapper: computes metrics, prints a summary, saves to CSV, returns the DataFrame.
+    """
+    print("\n" + "═"*70)
+    print("Zone-wise Train / Test Metrics")
+    print("═"*70)
+
+    results_df = evaluate_zone_metrics(registry, df)
+
+    # ── Pretty summary ──────────────────────────────────────────────────────
+    print("\n" + "═"*70)
+    print("SUMMARY")
+    print("═"*70)
+    summary = (
+        results_df
+        .set_index(["zone", "split"])
+        .sort_index()
+    )
+    print(summary.to_string())
+
+    # ── Save ────────────────────────────────────────────────────────────────
+    results_df.to_csv(filepath, index=False)
+    print(f"\n💾 Saved → {filepath}")
+
+    return results_df
+
 
 
 # ══════════════════════════════════════════════════════════════════
@@ -478,14 +569,22 @@ def evaluate_station_split(registry, df):
 if __name__ == "__main__":
 
     # Load your FINAL dataset (must contain 'monsoon_zone')
+    # df = load_data("final_monsoon_zones.csv")
+
+    # # Train models
+    # registry = ZoneModelRegistry()
+    # registry.train_all(df)
+
+    # # Evaluate
+    # results_df = evaluate_station_split(registry, df)
+    # results_df.to_csv("zonewise_evaluation_results.csv", index=False)
+    # print("\n📊 Final Results:")
+    # print(results_df.groupby("zone")[["rmse", "mae"]].mean())
+    
+    
     df = load_data("final_monsoon_zones.csv")
 
-    # Train models
     registry = ZoneModelRegistry()
     registry.train_all(df)
 
-    # Evaluate
-    results_df = evaluate_station_split(registry, df)
-
-    print("\n📊 Final Results:")
-    print(results_df.groupby("zone")[["rmse", "mae"]].mean())
+    zone_metrics_df = save_zone_metrics(registry, df)

@@ -12,7 +12,6 @@ from app.training.config.rainfall_forecasting_zonewise_config import (
     BEST_XGB_PARAMS,
 )
 
-
 # -----------------------------------
 # PATHS
 # -----------------------------------
@@ -23,21 +22,11 @@ DATA_PATH: Path = APP_DIR / "data" / "monsoon_zonewise_df.parquet"
 MODEL_BASE_DIR: Path = APP_DIR / "models"
 ZONEWISE_DIR: Path = MODEL_BASE_DIR / "RAINFALL_FORECAST_ZONEWISE"
 
-
 # -----------------------------------
 # BUILD MODEL
 # -----------------------------------
 
 def build_xgb_model(params: Dict) -> XGBRegressor:
-    """
-    Build and return an XGBoost regressor with optimized parameters.
-
-    Args:
-        params (Dict): Dictionary of hyperparameters for XGBoost.
-
-    Returns:
-        XGBRegressor: Configured XGBoost regression model.
-    """
     return XGBRegressor(
         **params,
         random_state=42,
@@ -45,42 +34,33 @@ def build_xgb_model(params: Dict) -> XGBRegressor:
         n_jobs=-1,
     )
 
-
 # -----------------------------------
-# METRICS
+# METRICS (TRAINING METRICS ONLY)
 # -----------------------------------
 
-def evaluate_regression(
+def evaluate_on_training_data(
     model: XGBRegressor,
-    X_train: pd.DataFrame,
-    y_train: pd.Series,
-    X_test: pd.DataFrame,
-    y_test: pd.Series,
+    X: pd.DataFrame,
+    y: pd.Series,
 ) -> Dict[str, float]:
     """
-    Evaluate regression model performance on train and test data.
-
-    Returns:
-        Dict[str, float]: Dictionary containing MAE, RMSE, and R² scores.
+    Evaluate model on training data only.
+    NOTE: These metrics are optimistic (no generalization guarantee).
     """
-    train_preds = model.predict(X_train)
-    test_preds = model.predict(X_test)
+
+    preds = model.predict(X)
 
     metrics: Dict[str, float] = {
-        "train_mae": mean_absolute_error(y_train, train_preds),
-        "test_mae": mean_absolute_error(y_test, test_preds),
-        "train_rmse": root_mean_squared_error(y_train, train_preds),
-        "test_rmse": root_mean_squared_error(y_test, test_preds),
-        "train_r2": r2_score(y_train, train_preds),
-        "test_r2": r2_score(y_test, test_preds),
+        "mae": mean_absolute_error(y, preds),
+        "rmse": root_mean_squared_error(y, preds),
+        "r2": r2_score(y, preds),
     }
 
-    print("\nMODEL PERFORMANCE")
+    print("\nTRAINING PERFORMANCE (100% DATA)")
     for k, v in metrics.items():
         print(f"{k}: {v:.4f}")
 
     return metrics
-
 
 # -----------------------------------
 # TRAIN FUNCTION
@@ -90,23 +70,6 @@ def train_and_save_zone_models(
     data_path: Path = DATA_PATH,
     model_dir: Path = ZONEWISE_DIR,
 ) -> Dict[str, XGBRegressor]:
-    """
-    Train separate XGBoost models for each monsoon zone and save them.
-
-    Workflow:
-    - Load dataset from parquet
-    - Split data into train/test using time-based split
-    - Train one model per monsoon zone
-    - Evaluate model performance
-    - Save trained models in structured directory
-
-    Args:
-        data_path (Path): Path to input dataset.
-        model_dir (Path): Directory where trained models will be saved.
-
-    Returns:
-        Dict[str, XGBRegressor]: Dictionary mapping zone names to trained models.
-    """
 
     if not data_path.exists():
         raise FileNotFoundError(f"Dataset not found at {data_path}")
@@ -122,7 +85,7 @@ def train_and_save_zone_models(
     models: Dict[str, XGBRegressor] = {}
 
     print("\n" + "═" * 60)
-    print("Training Zone-wise XGBoost Models")
+    print("Training Zone-wise XGBoost Models (100% Data)")
     print("═" * 60)
 
     # -----------------------------------
@@ -135,25 +98,14 @@ def train_and_save_zone_models(
 
         zone_df: pd.DataFrame = df[df["monsoon_zone"] == zone].copy()
 
-        # -----------------------------------
-        # TIME SPLIT
-        # -----------------------------------
-
-        train_df = zone_df[zone_df["date_of_record"] <= "2023-12-31"]
-        test_df = zone_df[zone_df["date_of_record"] >= "2024-01-01"]
-
-        print(f"Train size: {len(train_df)}")
-        print(f"Test size : {len(test_df)}")
-
-        if train_df.empty or test_df.empty:
-            print(f"Skipping {zone} (insufficient data)")
+        if zone_df.empty:
+            print(f"Skipping {zone} (no data)")
             continue
 
-        X_train: pd.DataFrame = train_df[FEATURES]
-        y_train: pd.Series = train_df[TARGET]
+        print(f"Total samples: {len(zone_df)}")
 
-        X_test: pd.DataFrame = test_df[FEATURES]
-        y_test: pd.Series = test_df[TARGET]
+        X: pd.DataFrame = zone_df[FEATURES]
+        y: pd.Series = zone_df[TARGET]
 
         # -----------------------------------
         # TRAIN
@@ -161,14 +113,14 @@ def train_and_save_zone_models(
 
         model: XGBRegressor = build_xgb_model(BEST_XGB_PARAMS)
 
-        print("Training model...")
-        model.fit(X_train, y_train)
+        print("Training model on full dataset...")
+        model.fit(X, y)
 
         # -----------------------------------
-        # EVALUATE
+        # EVALUATE (ON TRAINING DATA)
         # -----------------------------------
 
-        evaluate_regression(model, X_train, y_train, X_test, y_test)
+        evaluate_on_training_data(model, X, y)
 
         # -----------------------------------
         # SAVE MODEL
@@ -176,7 +128,6 @@ def train_and_save_zone_models(
 
         zone_name: str = str(zone).upper().replace(" ", "_")
         model_filename: str = f"{zone_name}_XGB_MODEL.pkl"
-
         model_path: Path = model_dir / model_filename
 
         joblib.dump(model, model_path)
@@ -195,5 +146,6 @@ def train_and_save_zone_models(
 # -----------------------------------
 # ENTRY POINT
 # -----------------------------------
+
 if __name__ == "__main__":
     train_and_save_zone_models()

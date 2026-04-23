@@ -44,6 +44,22 @@ plt.rcParams.update({
 })
 
 
+BEST_XGB_PARAMS = {
+    "n_estimators": 731,
+    "max_depth": 11,
+    "learning_rate": 0.014498153031985235,
+    "subsample": 0.7544991318541121,
+    "colsample_bytree": 0.7352517209279018,
+    "gamma": 0.8642446639034301,
+    "reg_alpha": 3.5856717998369967,
+    "reg_lambda": 1.982944548754793,
+    "min_child_weight": 10,
+    "max_delta_step": 0,
+    "colsample_bylevel": 0.5751814333780054,
+    "colsample_bynode": 0.6861526870547513,
+}
+
+
 # ══════════════════════════════════════════════════════════════════
 #  DATA LAYER
 # ══════════════════════════════════════════════════════════════════
@@ -85,7 +101,7 @@ def build_model(**kwargs) -> XGBRegressor:
         colsample_bytree=0.8,
         random_state=42,
     )
-    return XGBRegressor(**{**defaults, **kwargs})
+    return XGBRegressor(**BEST_XGB_PARAMS)
 
 
 def train_model(
@@ -323,36 +339,244 @@ def evaluate_stations(
     return summary
 
 
+import os, re
+from sklearn.metrics import r2_score
+
+# ══════════════════════════════════════════════════════════════════
+#  SAVE HELPER
+# ══════════════════════════════════════════════════════════════════
+def save_forecast_plot(fig, station: str, dates: pd.Series, out_dir: str = "forecasts"):
+    os.makedirs(out_dir, exist_ok=True)
+    safe_station = re.sub(r'[\\/*?:"<>|]', "_", station).replace(" ", "_")
+    start_date   = pd.to_datetime(dates.iloc[0]).strftime("%b_%Y")
+    end_date     = pd.to_datetime(dates.iloc[-1]).strftime("%b_%Y")
+    filepath     = os.path.join(out_dir, f"{safe_station}_{start_date}_to_{end_date}.png")
+    fig.savefig(filepath, dpi=300, bbox_inches="tight", facecolor="white")
+    print(f"  Saved: {filepath}")
+
+
+# ══════════════════════════════════════════════════════════════════
+#  UPDATED plot_forecast — white bg + saves
+# ══════════════════════════════════════════════════════════════════
+def plot_forecast(
+    dates:      pd.Series,
+    y_true:     np.ndarray,
+    y_pred:     np.ndarray,
+    station:    str,
+    metrics:    Dict[str, float],
+    title_suffix: str = "",
+    save:       bool  = True,
+    out_dir:    str   = "forecasts",
+) -> None:
+    x_idx         = np.arange(len(y_true))
+    y_true_smooth = _smooth(y_true)
+    y_pred_smooth = _smooth(y_pred)
+
+    fig, ax = plt.subplots(figsize=(14, 6))
+    fig.patch.set_facecolor("white")          # force white bg
+    ax.set_facecolor("white")
+    fig.subplots_adjust(left=0.08, right=0.97, top=0.88, bottom=0.14)
+
+    ax.fill_between(x_idx, y_true_smooth, alpha=0.15, color=ACTUAL_COLOR)
+    ax.fill_between(x_idx, y_pred_smooth, alpha=0.15, color=PREDICTED_COLOR)
+    ax.scatter(x_idx, y_true, color=ACTUAL_COLOR,    alpha=0.25, s=18, zorder=2)
+    ax.scatter(x_idx, y_pred, color=PREDICTED_COLOR, alpha=0.25, s=18, zorder=2)
+    ax.plot(x_idx, y_true_smooth, color=ACTUAL_COLOR,    lw=2.2, label="Actual Rainfall",    zorder=3)
+    ax.plot(x_idx, y_pred_smooth, color=PREDICTED_COLOR, lw=2.2, label="Predicted Rainfall", zorder=3, ls="--")
+
+    tick_step = max(1, len(x_idx) // 15)
+    tick_pos  = x_idx[::tick_step]
+    ax.set_xticks(tick_pos)
+    ax.set_xticklabels([f"Day {i}" for i in tick_pos], rotation=35, ha="right", fontsize=9)
+    ax.set_xlabel("Days from Start", fontsize=11, labelpad=8)
+    ax.set_ylabel("Rainfall (mm)",   fontsize=11, labelpad=8)
+
+    # white-bg friendly text colours
+    ax.title.set_color("#111111")
+    ax.xaxis.label.set_color("#333333")
+    ax.yaxis.label.set_color("#333333")
+    ax.tick_params(colors="#555555")
+    for spine in ax.spines.values():
+        spine.set_edgecolor("#cccccc")
+    ax.grid(color="#dddddd", linestyle="--", alpha=0.6)
+
+    ax.set_title(
+        f"Rainfall Forecast  ·  XGBoost  ·  {station}{title_suffix}",
+        fontsize=14, fontweight="bold", pad=14, color="#111111"
+    )
+
+    # build metrics text — include r2 & nse if present
+    m = metrics
+    parts = [f"RMSE: {m['rmse']:.2f}", f"MAE: {m['mae']:.2f}", f"MSE: {m['mse']:.2f}"]
+    if "r2"  in m and not np.isnan(m["r2"]):  parts.append(f"R²: {m['r2']:.3f}")
+    if "nse" in m and not np.isnan(m["nse"]): parts.append(f"NSE: {m['nse']:.3f}")
+    ax.text(
+        0.98, 0.97, "   ".join(parts),
+        transform=ax.transAxes, fontsize=9, color="#333333",
+        ha="right", va="top",
+        bbox=dict(boxstyle="round,pad=0.4", facecolor="#f5f5f5", edgecolor="#cccccc", alpha=0.95)
+    )
+
+    legend = ax.legend(loc="upper left", fontsize=10, framealpha=0.9,
+                       facecolor="white", edgecolor="#cccccc")
+    for txt in legend.get_texts():
+        txt.set_color("#333333")
+
+    plt.tight_layout()
+
+    if save:
+        save_forecast_plot(fig, station, dates, out_dir=out_dir)
+
+    plt.show()
+    plt.close(fig)
+
+
+# ══════════════════════════════════════════════════════════════════
+#  5-METRIC HELPER
+# ══════════════════════════════════════════════════════════════════
+def compute_nse(y_true: np.ndarray, y_pred: np.ndarray) -> float:
+    num = np.sum((y_true - y_pred) ** 2)
+    den = np.sum((y_true - np.mean(y_true)) ** 2)
+    return float(1 - num / (den + 1e-9))
+
+
+def compute_all_metrics(y_true: np.ndarray, y_pred: np.ndarray) -> Dict[str, float]:
+    mse = mean_squared_error(y_true, y_pred)
+    return dict(
+        mse  = float(mse),
+        rmse = float(np.sqrt(mse)),
+        mae  = float(mean_absolute_error(y_true, y_pred)),
+        r2   = float(r2_score(y_true, y_pred)),
+        nse  = compute_nse(y_true, y_pred),
+    )
+
+
+# ══════════════════════════════════════════════════════════════════
+#  TRAIN / TEST METRIC TABLE  (station-based model)
+# ══════════════════════════════════════════════════════════════════
+def evaluate_train_test_metrics(
+    model:       XGBRegressor,
+    df:          pd.DataFrame,
+    train_start: str = "2015-01-01",
+    train_end:   str = "2022-12-31",
+    test_start:  str = "2023-01-01",
+    test_end:    str = "2025-12-31",
+    features:    List[str] = FEATURES,
+    target:      str       = TARGET,
+    save_csv:    str       = "station_train_test_metrics.csv",
+) -> pd.DataFrame:
+    """
+    For every station compute all 5 metrics (RMSE, MAE, MSE, R², NSE)
+    on both the train window and the test window.
+
+    Returns a tidy DataFrame:
+        station | split | mse | rmse | mae | r2 | nse
+    """
+    stations = df["station_name"].unique()
+    records  = []
+
+    print("\n" + "═"*65)
+    print("Station-level Train / Test Metrics")
+    print("═"*65)
+
+    for station in stations:
+        sdf = df[df["station_name"] == station].copy()
+
+        for split, start, end in [
+            ("train", train_start, train_end),
+            ("test",  test_start,  test_end),
+        ]:
+            window = sdf[
+                (sdf["date_of_record"] >= start) &
+                (sdf["date_of_record"] <= end)
+            ]
+            if len(window) < 10:          # skip stations with too little data
+                continue
+
+            X      = window[features]
+            y_true = window[target].values
+            y_pred = model.predict(X)
+            m      = compute_all_metrics(y_true, y_pred)
+
+            records.append({
+                "station": station,
+                "split":   split,
+                **m,
+            })
+
+            print(f"  {station:<30} [{split:5}]  "
+                  f"RMSE={m['rmse']:6.3f}  MAE={m['mae']:6.3f}  "
+                  f"MSE={m['mse']:8.3f}  R²={m['r2']:.3f}  NSE={m['nse']:.3f}")
+
+    results_df = pd.DataFrame(records, columns=["station","split","mse","rmse","mae","r2","nse"])
+
+    # ── Summary averages ─────────────────────────────────────────
+    print("\n" + "═"*65)
+    print("SUMMARY — averaged across all stations")
+    print("═"*65)
+    summary = results_df.groupby("split")[["mse","rmse","mae","r2","nse"]].mean()
+    print(summary.to_string())
+
+    # ── Save ─────────────────────────────────────────────────────
+    if save_csv:
+        results_df.to_csv(save_csv, index=False)
+        print(f"\n  Saved → {save_csv}")
+
+    print("═"*65 + "\n")
+    return results_df
+
 # ══════════════════════════════════════════════════════════════════
 #  ENTRY POINT
 # ══════════════════════════════════════════════════════════════════
+# if __name__ == "__main__":
+
+    # # 1. Load data
+    # df = load_data("processed_weather_data.csv")
+
+    # # 2. Train on 2015-01-01 → 2022-12-31
+    # model = train_model(df, train_start="2015-01-01", train_end="2022-12-31")
+
+    # # 3. Get station list
+    # stations = df["station_name"].unique()[:50].tolist()
+
+    # # 4. Full comparison: actual vs predicted for 2023-2025
+    # summary_df = evaluate_stations(
+    #     model=model,
+    #     df=df,
+    #     stations=stations,
+    #     start="2023-01-01",
+    #     end="2025-12-31"
+    # )
+
+    # # ── Example: single ad-hoc prediction ───────────────────────
+    # # Predict 90 days for one station from a specific date
+    # result, metrics = predict(
+    #     model=model,
+    #     df=df,
+    #     station_name=stations[0],
+    #     date_of_record="2024-06-01",
+    #     num_days=90
+    # )
+    # print(result.head(10))
+
+
 if __name__ == "__main__":
-
-    # 1. Load data
-    df = load_data("processed_weather_data.csv")
-
-    # 2. Train on 2015-01-01 → 2022-12-31
+    df    = load_data("processed_weather_data.csv")
     model = train_model(df, train_start="2015-01-01", train_end="2022-12-31")
 
-    # 3. Get station list
-    stations = df["station_name"].unique()[:50].tolist()
+    # All 5 metrics for every station — train & test rows
+    metrics_df = evaluate_train_test_metrics(
+        model       = model,
+        df          = df,
+        train_start = "2015-01-01",
+        train_end   = "2022-12-31",
+        test_start  = "2023-01-01",
+        test_end    = "2025-12-31",
+    )
 
-    # 4. Full comparison: actual vs predicted for 2023-2025
+    # Forecast plots — now saves to forecasts/ with white background
     summary_df = evaluate_stations(
-        model=model,
-        df=df,
-        stations=stations,
-        start="2023-01-01",
-        end="2025-12-31"
+        model=model, df=df,
+        stations=df["station_name"].unique()[:50].tolist(),
+        start="2023-01-01", end="2025-12-31",
     )
-
-    # ── Example: single ad-hoc prediction ───────────────────────
-    # Predict 90 days for one station from a specific date
-    result, metrics = predict(
-        model=model,
-        df=df,
-        station_name=stations[0],
-        date_of_record="2024-06-01",
-        num_days=90
-    )
-    print(result.head(10))

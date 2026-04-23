@@ -51,9 +51,8 @@ def forecast_rainfall_pipeline(
         row["month_sin"] = np.sin(2 * np.pi * row["month"] / 12)
         row["month_cos"] = np.cos(2 * np.pi * row["month"] / 12)
 
-        # Predict
         X: pd.DataFrame = pd.DataFrame([row[FEATURES]])
-        pred: float = float(model.predict(X)[0])
+        pred: float = max(0.0, float(model.predict(X)[0]))
 
         predictions.append(
             ForecastItem(
