@@ -1,0 +1,39 @@
+# ── Large data / output directories ──────────────────────────────
+# These are excluded from version control due to size.
+# Restore them locally before running the pipeline.
+
+# ── Jupyter Notebooks ─────────────────────────────────────────────
+# Notebooks have been replaced by src/preprocess_and_zone.py.
+# Ignore any new notebooks created locally.
+*.ipynb
+
+# Raw & processed datasets (~300 MB+)
+dataset/
+
+# Trained XGBoost model binaries
+models/
+
+# Per-station forecast PNG outputs
+forecasts/
+
+# ── Keep generated report plots ───────────────────────────────────
+# report_plots/ is small enough to commit — remove the line below
+# if you want to exclude it too.
+# report_plots/
+
+# ── Python cache ──────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ── Virtual environments ──────────────────────────────────────────
+.venv/
+venv/
+env/
+
+# ── Jupyter checkpoints ───────────────────────────────────────────
+.ipynb_checkpoints/
+
+# ── OS noise ──────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
